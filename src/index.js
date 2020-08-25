@@ -5,103 +5,6 @@ const morgan = require("morgan");
 const tankNames = require("./data/tankNames");
 const WN8calculator = require("./wn8");
 const calculatePlayerWN8 = require("./calculatePlayerWN8");
-/*
-CREATE TABLE OTSNA (
-    id smallserial NOT NULL,
-    tank_id INTEGER NOT NULL PRIMARY KEY, 
-    name TEXT NOT NULL, 
-    tier INTEGER NOT NULL, 
-    class TEXT NOT NULL, 
-    nation TEXT NOT NULL, 
-    isPrem BOOLEAN NOT NULL,
-
-    owned INTEGER NOT NULL,
-    avgBattles INTEGER NOT NULL,
-    avgWinrate REAL NOT NULL,
-    avgWN8 INTEGER NOT NULL,
-    avgDamage INTEGER NOT NULL,
-    avgFrags REAL NOT NULL,
-    dmgRatio REAL NOT NULL,
-    KD REAL NOT NULL,
-    avgXP REAL NOT NULL,
-    hits REAL NOT NULL,
-    avgSpots REAL NOT NULL,
-    armorEff REAL NOT NULL,
-    ThreeMark REAL NOT NULL,
-    ACE REAL NOT NULL,
-
-    DPGpercentiles INTEGER[],
-    WN8percentiles INTEGER[]
-);
-
-CREATE TABLE playerCount (
-    id smallserial NOT NULL,
-    name TEXT NOT NULL PRIMARY KEY, 
-    numPlayers INTEGER NOT NULL
-);
-
-CREATE TABLE NAcurves (
-    id smallserial NOT NULL,
-    tank_id INTEGER NOT NULL PRIMARY KEY, 
-    name TEXT NOT NULL, 
-    WR42 REAL[], WR43 REAL[], WR44 REAL[], WR45 REAL[], WR46 REAL[], WR47 REAL[], WR48 REAL[], WR49 REAL[], WR50 REAL[], WR51 REAL[], WR52 REAL[], WR53 REAL[],
-    WR54 REAL[], WR55 REAL[], WR56 REAL[], WR57 REAL[], WR58 REAL[], WR59 REAL[], WR60 REAL[], WR61 REAL[], WR62 REAL[], WR63 REAL[], WR64 REAL[], WR65 REAL[],
-
-    WN200 INTEGER[], WN300 INTEGER[], WN400 INTEGER[], WN500 INTEGER[], WN600 INTEGER[], WN700 INTEGER[], WN800 INTEGER[], WN900 INTEGER[], WN1000 INTEGER[], WN1100 INTEGER[], 
-    WN1200 INTEGER[], WN1300 INTEGER[], WN1400 INTEGER[], WN1500 INTEGER[], WN1600 INTEGER[], WN1700 INTEGER[], WN1800 INTEGER[], WN1900 INTEGER[], WN2000 INTEGER[], WN2100 INTEGER[], 
-    WN2200 INTEGER[], WN2300 INTEGER[], WN2400 INTEGER[], WN2500 INTEGER[], WN2600 INTEGER[], WN2700 INTEGER[], WN2800 INTEGER[], WN2900 INTEGER[], WN3000 INTEGER[], WN3100 INTEGER[], 
-    WN3200 INTEGER[], WN3300 INTEGER[], WN3400 INTEGER[], WN3500 INTEGER[]
-);
-
-CREATE TABLE tankDataNA (
-    id smallserial NOT NULL,
-    tank_id INTEGER NOT NULL PRIMARY KEY, 
-    name TEXT NOT NULL, 
-    tier INTEGER NOT NULL, 
-    class TEXT NOT NULL, 
-    nation TEXT NOT NULL, 
-    isPrem BOOLEAN NOT NULL,
-
-    owned INTEGER NOT NULL,
-    battles INTEGER NOT NULL,
-    wins INTEGER NOT NULL,
-    damage BIGINT NOT NULL,
-    damage_received BIGINT NOT NULL,
-
-    WN8 BIGINT NOT NULL,
-
-    frags INTEGER NOT NULL,
-    xp BIGINT NOT NULL,
-    survived INTEGER NOT NULL,
-    hits INTEGER NOT NULL,
-    shots INTEGER NOT NULL,
-
-    tanking_factor real NOT NULL,
-    def INTEGER NOT NULL,
-    cap INTEGER NOT NULL,
-    explosion_hits_received INTEGER NOT NULL,
-    no_damage_direct_hits_received INTEGER NOT NULL,
-    
-	blocked BIGINT NOT NULL,
-	spotted INTEGER NOT NULL,
-    explosion_hits INTEGER NOT NULL,
-    
-    threeMark INTEGER NOT NULL,
-    twoMark INTEGER NOT NULL,
-    oneMark INTEGER NOT NULL,
-    ace INTEGER NOT NULL,
-    firstClass INTEGER NOT NULL,
-    secondClass INTEGER NOT NULL,
-    thirdClass INTEGER NOT NULL,
-
-    DPG INTEGER[],
-    WN8s INTEGER[],
-
-    totalWN8 BIGINT,
-    totalWinrate BIGINT
-);
-
-*/
 
 async function insertCurves(id, WR, overallWR, WN8, overallWN8) {
     overallWR = parseInt(overallWR+0.5);
@@ -136,7 +39,7 @@ async function initCurves() {
     }
 }
 
-async function initTableOld() {
+async function initTable() {
     const keys = Object.keys(tankNames);
     for (const key of keys) {
         console.log('key' + key);
@@ -203,7 +106,6 @@ async function APIcall(i, index) {
             const res2 = await fetch(`https://api.worldoftanks.com/wot/tanks/stats/?application_id=008d3e193f77f75897ccaeb120958535&account_id=${i}&fields=mark_of_mastery%2C+tank_id%2C+all`);
             const res3 = await fetch(`https://api.worldoftanks.com/wot/tanks/achievements/?application_id=e1c99c63c09dc9dbc087aac9db72de86&account_id=${i}&fields=achievements%2C+tank_id`);
             const res4 = await fetch(`https://api.worldoftanks.com/wot/account/info/?application_id=bd589e105895f2f6b8af31f27da3e05e&account_id=${i}`);
-
             const data2 = await res2.json();
             const data3 = await res3.json();
             const data4 = await res4.json();
@@ -273,7 +175,7 @@ function loop() {
             const id = counter + Math.floor(Math.random() * 40000000); 
             //APIcall(1011694618, i);
             APIcall(id, i);
-        }, i * 70);
+        }, i * 60);
     }
 }
 
@@ -281,7 +183,7 @@ function main() {
     loop();  
 }
 //initCurves();
-//initTableOld();
+//initTable();
 main();
 
 //SET client_encoding TO 'UTF8';
