@@ -22,8 +22,8 @@ async function initCurves() {
             console.log('key' + key);
             await db.query(`INSERT INTO NAcurves (
                 tank_id, name, 
-                WR42, WR43, WR44, WR45, WR46, WR47, WR48, WR49, WR50, WR51, WR52, WR53,
-                WR54, WR55, WR56, WR57, WR58, WR59, WR60, WR61, WR62, WR63, WR64, WR65,
+                42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+                54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65,
                 WN200, WN300, WN400, WN500, WN600, WN700, WN800, WN900, WN1000, WN1100, 
                 WN1200, WN1300, WN1400, WN1500, WN1600, WN1700, WN1800, WN1900, WN2000, WN2100, 
                 WN2200, WN2300, WN2400, WN2500, WN2600, WN2700, WN2800, WN2900, WN3000, WN3100, 
@@ -212,11 +212,11 @@ async function APIcall(i, index) {
 }
 
 function loop() {
-    let counter = 1000000000;
+    let counter = 1010000000;
     for (let i = 0; i < 250; ++i) {
         setTimeout(function () {
             //const id = counter + 40*i;
-            const id = counter + Math.floor(Math.random() * 40000000); 
+            const id = counter + Math.floor(Math.random() * 30000000); 
             //APIcall(1011694618, i);
             APIcall(id, i);
         }, i * 60);
