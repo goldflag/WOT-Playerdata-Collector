@@ -33,7 +33,7 @@ CREATE TABLE playerCount (
     numPlayers INTEGER NOT NULL
 );
 
-CREATE TABLE NAcurves (
+CREATE TABLE curvesNA (
     id smallserial NOT NULL,
     tank_id INTEGER NOT NULL PRIMARY KEY, 
     name TEXT NOT NULL, 
@@ -46,7 +46,7 @@ CREATE TABLE NAcurves (
     WN3200 BIGINT, WN3300 BIGINT, WN3400 BIGINT, WN3500 BIGINT
 );
 
-CREATE TABLE NAcurvesCount (
+CREATE TABLE curvesCountNA (
     id smallserial NOT NULL,
     tank_id INTEGER NOT NULL PRIMARY KEY, 
     name TEXT NOT NULL, 
@@ -59,7 +59,7 @@ CREATE TABLE NAcurvesCount (
     WN3200 INTEGER, WN3300 INTEGER, WN3400 INTEGER, WN3500 INTEGER
 );
 
-CREATE TABLE tankDataNA (
+CREATE TABLE tankDataNA2 (
     id smallserial NOT NULL,
     tank_id INTEGER NOT NULL PRIMARY KEY, 
     name TEXT NOT NULL, 
